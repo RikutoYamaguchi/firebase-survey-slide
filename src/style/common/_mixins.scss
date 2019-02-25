@@ -1,0 +1,324 @@
+@charset "UTF-8";
+
+//  ClearFix
+// ---------------------------------------------------------------
+
+@mixin ClearFix {
+  min-height: 1px;
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+  }
+  * html & {
+    height: 1px;
+  }
+}
+
+//  ClearInlineSpace
+// ---------------------------------------------------------------
+
+@mixin ClearInlineSpace {
+  letter-spacing: -.4em;
+  & > * {
+    letter-spacing: normal;
+  }
+}
+
+//  Responsive
+// ---------------------------------------------------------------
+
+@mixin ResponseTo($breakpoint) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@mixin ResponseOver($breakpoint) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@mixin ForIphoneX() {
+  @media only screen
+  and (device-width : 375px)
+  and (device-height : 812px)
+  and (-webkit-device-pixel-ratio : 3) {
+    @content;
+  }
+}
+
+
+//  共通幅
+// ---------------------------------------------------------------
+
+@mixin CommonWidth {
+  width: $contentsWidth;
+  margin: auto;
+}
+
+//  擬似要素ベース :after :before
+// ---------------------------------------------------------------
+
+@mixin PseudoElements($display: block) {
+  content: " ";
+  display: $display;
+}
+
+//  absolute要素のセンター配置用
+//  引数にmax-widthとmax-height指定
+// ---------------------------------------------------------------
+
+@mixin AbsoluteCenter($max-width: 100%, $max-height: 100%){
+  max-width: $max-width;
+  max-height: $max-height;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//  アンカータグ、ホバー設定クラス
+// ---------------------------------------------------------------
+
+@mixin HoverUnder {
+  @include ResponseOver (small) {
+    &, &:link, &:active, &:visited  {
+      text-decoration: none;
+    }
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin HoverNone {
+  &, &:link, &:active, &:visited  {
+    text-decoration: underline;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin HoverOpacity($opacity: .7) {
+  @include ResponseOver(small) {
+    &, &:link, &:active, &:visited  {
+      text-decoration: none;
+    }
+    &:hover {
+      opacity: $opacity;
+    }
+  }
+  @include ResponseTo (small) {
+    &, &:link, &:active, &:visited  {
+      text-decoration: none;
+    }
+  }
+}
+
+@mixin HoverOpacityTrans($time: .3s, $opacity: .5){
+  -webkit-transition: opacity $time;
+  -moz-transition: opacity $time;
+  -ms-transition: opacity $time;
+  -o-transition: opacity $time;
+  transition: opacity $time;
+  @include HoverOpacity($opacity);
+}
+
+@mixin HoverBehaviorSink($border-width: 4px) {
+  &:hover {
+    border-bottom: none;
+    border-top: $border-width solid $background_color_light;
+  }
+}
+
+//  text decorations
+// ---------------------------------------------------------------
+
+@mixin PlaceHolderColor($color) {
+  &:placeholder-shown {
+    color: $color;
+  }
+  &::-webkit-input-placeholder {
+    color:$color;
+  }
+  &:-moz-placeholder {
+    color:$color;
+    opacity: 1;
+  }
+  &::-moz-placeholder {
+    color:$color;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder {
+    color:$color;
+  }
+}
+
+@mixin TextOverFlowEllipsis () {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+@mixin TextClamp ($line: 2) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+//  BEM命名
+// ---------------------------------------------------------------
+
+@mixin Element($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+
+@mixin Modifier($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}
+
+//  三角形
+// ---------------------------------------------------------------
+
+
+@function heightCalc ($value) {
+  @return $value * 0.866;
+}
+
+@function widthCalc ($value) {
+  @return $value / 2;
+}
+
+@mixin Triangle ($direction, $color, $width, $height, $sizeUnit: 'px') {
+  width: 0;
+  height: 0;
+  border-style: solid;
+
+  @if ($direction == 'top') {
+    border-color: transparent transparent $color transparent;
+    border-width:
+      0
+      unquote(widthCalc($width)+$sizeUnit)
+      unquote(heightCalc($height)+$sizeUnit)
+      unquote(widthCalc($width)+$sizeUnit)
+  } @else if ($direction == 'right') {
+    border-color: transparent transparent transparent $color;
+    border-width:
+      unquote(widthCalc($width)+$sizeUnit)
+      0
+      unquote(widthCalc($width)+$sizeUnit)
+      unquote(heightCalc($height)+$sizeUnit);
+  } @else if ($direction == 'bottom') {
+    border-color: $color transparent transparent transparent;
+    border-width:
+      unquote(heightCalc($height)+$sizeUnit)
+      unquote(widthCalc($width)+$sizeUnit)
+      0
+      unquote(widthCalc($width)+$sizeUnit);
+  } @else if ($direction == 'left') {
+    border-color: transparent $color transparent transparent;
+    border-width:
+      unquote(widthCalc($width)+$sizeUnit)
+      unquote(heightCalc($height)+$sizeUnit)
+      unquote(widthCalc($width)+$sizeUnit)
+      0;
+  }
+}
+
+
+//  スクロールバー
+// ---------------------------------------------------------------
+
+@mixin Scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+  // For Google Chrome
+  ::-webkit-scrollbar {
+    width:  $size;
+    height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+//  アスペクト比
+// ---------------------------------------------------------------
+
+@mixin AspectRatio($width, $height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+//  マテリアル影
+// ---------------------------------------------------------------
+
+@mixin MaterialShadow($depth) {
+  @if $depth < 1 {
+    box-shadow: none;
+  } @else if $depth > 5 {
+    @warn "Invalid $depth `#{$depth}` for mixin `card`.";
+  } @else {
+    box-shadow: bottom-shadow($depth), top-shadow($depth);
+  }
+}
+
+@mixin AnimationValue( $name, $duration, $function, $delay, $count, $state){
+  -webkit-animation: $name $duration+s $function $delay+s $count $state;
+  animation: $name $duration+s $function $delay+s $count $state;
+}
+
+//  SmoothScroll
+// ---------------------------------------------------------------
+
+@mixin SmoothScroll() {
+  -webkit-overflow-scrolling : touch
+}

@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------
+
+  Base setting
+
+--------------------------------------------------------------- */
+
+/*  base style
+------------------------------------------ */
+html {
+  width: 100%;
+  font-size: 100%;
+}
+
+body {
+  font-family: $fontFamilyMeiryo;
+  font-size: rem($fontSizeDefault);
+  line-height: $lineHeightDefault;
+  background: $backgroundColorDefault;
+  color: $fontColorDefault;
+  font-weight: $fontWeightDefault;
+  width: 100%;
+  min-width: $pageWidth;
+
+  @include ResponseTo(small) {
+    min-width: 0;
+  }
+  //-webkit-font-feature-settings: 'palt' 1;
+  //font-feature-settings: 'palt' 1;
+  //letter-spacing: 1px;
+}
+
+//@media all and (-ms-high-contrast:none){
+//  :root * {
+//    font-family: "メイリオ", "Meiryo", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", Verdana, "ＭＳ Ｐゴシック", "MS P Gothic", Arial, Helvetica, sans-serif!important;
+//  } /* IE10~ */
+//}
+
+/*  Anchor default
+------------------------------------------ */
+
+a {
+  @include HoverNone;
+  font-family: $fontFamilyMeiryo;
+  color: $linkColorDefault;
+}
+
+label {
+  cursor: pointer;
+}
+
+/*  input , textarea Font
+------------------------------------------ */
+select, button, input, textarea {
+  font-family: $fontFamilyMeiryo;
+  outline: none;
+  color: $fontColorDefault;
+}
+
+a, label, select, button, input, textarea {
+  -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+
+input, textarea {
+  -webkit-user-select: auto;
+  user-select: initial;
+  -webkit-touch-callout: initial; /*iOS用*/
+}
+
+.wrap {
+  @include ResponseTo(small) {
+    padding-top: 40px;
+  }
+}
+
+.for-pc {
+  @include ResponseTo(small) {
+    display: none;
+  }
+}
+
+.for-sp {
+  display: none;
+  @include ResponseTo(small) {
+    display: block;
+  }
+}

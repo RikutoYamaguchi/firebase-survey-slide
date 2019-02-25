@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+// font-family
+$fontFamilyYugothic: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "メイリオ", Verdana, "Droid Sans", sans-serif;
+$fontFamilyMeiryo: "メイリオ", "Meiryo", "Osaka", Verdana, "ＭＳ Ｐゴシック", "MS P Gothic", Arial, Helvetica, sans-serif;
+$fontFamilyArial: Arial, Roboto, "Droid Sans", "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+$fontFamilyHelvetica: "Helvetica","Arial",sans-serif;
+$fontFamilyLato: Lato, "Helvetica","Arial",sans-serif;
+
+// font-size
+$fontSizeBasis: 16;
+$fontSizeDefault: 16;
+
+// line-height
+$lineHeightDefault: 1.4;
+
+// font-weight
+$fontWeightDefault: 500;
+
+// colors
+$themeColorDefault: #1ca264;
+$themeColorDark: #135c37;
+$themeColorThin: #c6ffea;
+
+// font color
+$fontColorDefault: #333;
+$fontColorThemeThin: $themeColorDark;
+$linkColorDefault: $fontColorDefault;
+
+// border color
+$borderColorDefault: #ddd;
+$borderColorTheme: $themeColorDefault;
+
+// background color
+$backgroundColorDefault: #fff;
+$backgroundColorTheme: $themeColorThin;
+
+/*
+レスポンシブフォントサイズ対応
+  320 (iPhone 5 5s SE)
+  360 (Android)
+  375 (iPhone 6 6s 7 8 X)
+  414 (iPhone 6 6s 7 8 Plus)
+  768 (iPad mini系 2 3 4 Air Pro 9.7)
+  834 (iPad Pro 10.5)
+  1024 (iPad Pro 12.9)
+*/
+$breakpoints: (
+  iPhoneSE: 320px,
+  Android: 360px,
+  iPhone8: 375px,
+  iPhonePlus: 414px,
+  iPad: 768px,
+  iPadPro10: 834px,
+  iPadPro12: 1024px,
+  small: 760px,
+  xsmall: 330px,
+);
+
+$pageWidth: 1220px;
+$contentsWidth: 1160px;

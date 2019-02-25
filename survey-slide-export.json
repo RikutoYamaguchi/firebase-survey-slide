@@ -1,0 +1,60 @@
+{
+  "currentProject" : "first",
+  "projects" : {
+    "first" : {
+      "buttonCounts" : {
+        "button1" : 0,
+        "button2" : 0,
+        "button3" : 0,
+        "button4" : 0
+      },
+      "currentSlideIndex" : 0,
+      "isShowQuestionPostButton" : false,
+      "questions" : {
+        "default1" : {
+          "answers" : [ {
+            "context" : "回答1"
+          }, {
+            "context" : "回答2"
+          }, {
+            "context" : "回答3"
+          } ],
+          "subject" : "テストアンケート1"
+        },
+        "default2" : {
+          "answers" : [ {
+            "context" : "回答1"
+          }, {
+            "context" : "回答2"
+          }, {
+            "context" : "回答3"
+          }, {
+            "context" : "回答4"
+          } ],
+          "subject" : "テストアンケート2"
+        }
+      },
+      "slides" : [ {
+        "component" : "Slide1"
+      }, {
+        "component" : "Slide2"
+      }, {
+        "component" : "Slide3"
+      }, {
+        "component" : "SlideQuestion",
+        "questionId" : "default1"
+      }, {
+        "component" : "SlideAnswer",
+        "questionId" : "default1"
+      }, {
+        "component" : "SlideQuestion",
+        "questionId" : "default2"
+      }, {
+        "component" : "SlideAnswer",
+        "questionId" : "default2"
+      }, {
+        "component" : "Slide4"
+      } ]
+    }
+  }
+}

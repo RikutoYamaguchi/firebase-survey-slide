@@ -1,0 +1,45 @@
+
+.transition {
+  @include Modifier(slide) {
+    &-enter-active, &-leave-active {
+      transition: all .15s;
+    }
+    &-enter-to {
+      opacity: 1;
+    }
+    &-enter {
+      opacity: 0;
+    }
+    &-leave-to {
+      opacity: 0;
+    }
+  }
+
+  @include Modifier(slide-toggle) {
+    &-enter-active, &-leave-active {
+      overflow: hidden;
+      transition: height .2s;
+    }
+    &-enter, &-leave-to {
+      height: 0;
+    }
+  }
+
+  @include Modifier(tooltip) {
+    &-enter-active, &-leave-active {
+      transition: opacity .2s;
+    }
+    &-enter, &-leave-to {
+      opacity: 0;
+    }
+  }
+
+  @include Modifier(fade) {
+    &-enter-active, &-leave-active {
+      transition: opacity .2s;
+    }
+    &-enter, &-leave-to {
+      opacity: 0;
+    }
+  }
+}
